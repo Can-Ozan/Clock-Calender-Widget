@@ -108,8 +108,8 @@ Modern Clock & Calendar Widget is a fully responsive and user-friendly time mana
 1. **Download or clone the project:**
 
 ```bash
-git clone <repository-url>
-cd clock-calendar-widget
+git clone https://github.com/Can-Ozan/Clock-Calender-Widget.git
+cd Clock-Calendar-Widget
 ```
 
 2. **Install dependencies:**
@@ -356,5 +356,6 @@ For questions about the project:
 **⭐ If you like this project, don't forget to give it a star!**
 
 *Modern Clock & Calendar Widget - With Turkish Support* 🚀
+
 
 </div>
