@@ -346,8 +346,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For questions about the project:
 
-- **GitHub Issues**: [Create an issue](https://github.com/username/repo/issues)
-- **Email**: developer@example.com
+- **GitHub Issues**: [Create an issue](https://github.com/Can-Ozan/repo/issues)
+- **Email**: yusufcanozan9@gmail.com
 
 ---
 
@@ -359,3 +359,4 @@ For questions about the project:
 
 
 </div>
+
