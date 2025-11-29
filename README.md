@@ -11,7 +11,7 @@
 
 [Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Development](#-development)
 
-![Widget Preview]https://Can-Ozan.github.io/Clock-Calendar-Widget
+![Widget Preview]
 
 </div>
 
