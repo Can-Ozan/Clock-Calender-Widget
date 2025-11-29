@@ -11,7 +11,7 @@
 
 [Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Development](#-development)
 
-![Widget Preview](https://via.placeholder.com/800x400/667eea/ffffff?text=Modern+Clock+%26+Calendar+Widget)
+![Widget Preview]https://Can-Ozan.github.io/Clock-Calendar-Widget/
 
 </div>
 
