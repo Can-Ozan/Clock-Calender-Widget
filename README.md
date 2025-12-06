@@ -11,7 +11,7 @@
 
 [Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Development](#-development)
 
-![Widget Preview]
+![Widget Preview] (https://clock-calender-widget.vercel.app)
 
 </div>
 
@@ -359,4 +359,5 @@ For questions about the project:
 
 
 </div>
+
 
