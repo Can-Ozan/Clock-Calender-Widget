@@ -1,89 +1,552 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Saat & Takvim</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <div class="widget">
-            <!-- Header -->
-            <div class="header">
-                <h1>Zaman Yönetimi</h1>
-                <button id="themeToggle" class="theme-toggle">🌙</button>
-            </div>
-
-            <!-- Saat Bölümü -->
-            <div class="clock-section">
-                <div class="time-display">
-                    <span id="hours">00</span>
-                    <span class="time-separator">:</span>
-                    <span id="minutes">00</span>
-                    <span class="time-separator">:</span>
-                    <span id="seconds">00</span>
-                    <span id="ampm" class="ampm"></span>
-                </div>
-                <div class="date-display" id="dateDisplay"></div>
-            </div>
-
-            <!-- Takvim Bölümü -->
-            <div class="calendar-section">
-                <div class="calendar-header">
-                    <button id="prevMonth" class="nav-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                        </svg>
-                    </button>
-                    <h2 id="currentMonthYear">Ocak 2024</h2>
-                    <button id="nextMonth" class="nav-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                        </svg>
-                    </button>
-                </div>
-
-                <div class="calendar-grid">
-                    <div class="day-header">Pzt</div>
-                    <div class="day-header">Sal</div>
-                    <div class="day-header">Çar</div>
-                    <div class="day-header">Per</div>
-                    <div class="day-header">Cum</div>
-                    <div class="day-header">Cmt</div>
-                    <div class="day-header">Paz</div>
-                    <!-- Takvim günleri buraya eklenecek -->
-                </div>
-
-                <div class="calendar-footer">
-                    <button id="todayBtn" class="today-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
-                        </svg>
-                        Bugüne Dön
-                    </button>
-                </div>
-            </div>
-
-            <!-- İstatistikler -->
-            <div class="stats-section">
-                <div class="stat-item">
-                    <div class="stat-value" id="dayOfYear">1</div>
-                    <div class="stat-label">Yılın Günü</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="weekNumber">1</div>
-                    <div class="stat-label">Hafta</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="daysLeft">365</div>
-                    <div class="stat-label">Kalan Gün</div>
-                </div>
-            </div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clock & Calendar — Your time, thoughtfully arranged</title>
+    <meta
+      name="description"
+      content="A quiet space for your time. A precise clock, keyboard-friendly calendar, local notes, world clocks and countdowns. Private, free, and available offline."
+    />
+    <meta name="theme-color" content="#f5f6fa" />
+    <meta property="og:title" content="Clock & Calendar Widget v2.0" />
+    <meta
+      property="og:description"
+      content="Your time, thoughtfully arranged. A private clock, calendar and lightweight personal time tools by Can-Ozan."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/icons/social.png" />
+    <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#calendarSection" data-tr="Takvime geç">Skip to calendar</a>
+    <div class="app-shell">
+      <header class="app-header">
+        <a class="brand" href="./">
+          <svg
+            class="brand-mark"
+            width="42"
+            height="42"
+            viewBox="0 0 42 42"
+            fill="none"
+            aria-hidden="true"
+          >
+            <rect width="42" height="42" rx="13" fill="currentColor" />
+            <circle cx="21" cy="21" r="11" stroke="white" stroke-width="1.7" />
+            <path d="M21 14v7l5 3" stroke="white" stroke-width="1.7" stroke-linecap="round" />
+          </svg>
+          <span
+            ><strong data-tr="Saat & Takvim">Clock & Calendar</strong
+            ><span class="brand-caption" data-tr="Zamanına küçük bir alan."
+              >A little space for your time.</span
+            ></span
+          >
+        </a>
+        <div class="header-actions">
+          <button id="installButton" class="quiet-button" type="button">
+            <span aria-hidden="true">↓</span> <span data-tr="Yükle">Install app</span>
+          </button>
+          <button
+            id="openSettings"
+            class="icon-button"
+            type="button"
+            aria-label="Open settings"
+            data-tr-label="Ayarları aç"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              aria-hidden="true"
+            >
+              <path d="M4 7h16M4 17h16" />
+              <circle cx="9" cy="7" r="3" fill="var(--surface)" />
+              <circle cx="15" cy="17" r="3" fill="var(--surface)" />
+            </svg>
+          </button>
         </div>
+      </header>
+      <div id="storageWarning" class="notice warning" role="status" hidden></div>
+      <div id="updateBanner" class="notice" hidden>
+        <span data-tr="Yeni sürüm hazır. Kaydetmediğin değişiklikleri bitir, sonra güncelle."
+          >An update is ready. Finish any unsaved changes, then update.</span
+        ><button id="updateButton" type="button" class="text-button" data-tr="Güncelle">
+          Update now
+        </button>
+      </div>
+      <main class="widget">
+        <section class="time-column" aria-labelledby="clockHeading">
+          <div class="section-top">
+            <h1 id="clockHeading" class="eyebrow" data-tr="ŞİMDİ, BURADA">HERE & NOW</h1>
+            <span class="live-label"
+              ><span class="live-dot" aria-hidden="true"></span
+              ><span data-tr="Canlı">Live</span></span
+            >
+          </div>
+          <section class="clock-section" aria-label="Current time" data-tr-label="Şu anki saat">
+            <div class="clock-location">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="10" r="3" />
+                <path d="M19 10c0 6-7 11-7 11S5 16 5 10a7 7 0 1 1 14 0Z" /></svg
+              ><span id="clockZone">Local time</span>
+            </div>
+            <div
+              class="time-display"
+              id="timeDisplay"
+              role="timer"
+              aria-live="off"
+              aria-label="Current time"
+            >
+              <span aria-hidden="true" id="hours">00</span
+              ><span aria-hidden="true" class="time-separator">:</span
+              ><span aria-hidden="true" id="minutes">00</span
+              ><span aria-hidden="true" id="secondsSeparator" class="time-separator small-separator"
+                >:</span
+              ><span aria-hidden="true" id="seconds" class="seconds">00</span
+              ><span aria-hidden="true" id="ampm" class="ampm"></span>
+            </div>
+            <p id="dateDisplay" class="date-display"></p>
+            <div
+              class="format-switch"
+              role="group"
+              aria-label="Clock format"
+              data-tr-label="Saat biçimi"
+            >
+              <button id="format24" type="button" aria-pressed="true">24h</button
+              ><button id="format12" type="button" aria-pressed="false">12h</button>
+            </div>
+          </section>
+          <section class="year-section" aria-labelledby="yearHeading">
+            <div class="section-top">
+              <h2 id="yearHeading" class="small-heading" data-tr="Yıla bir bakış">
+                A year in motion
+              </h2>
+              <span id="yearProgressLabel" class="muted"></span>
+            </div>
+            <progress
+              id="yearProgress"
+              max="365"
+              value="1"
+              aria-label="Days elapsed in the year"
+              data-tr-label="Yılın geçen günleri"
+            ></progress>
+            <div class="stats-section">
+              <div>
+                <strong id="dayOfYear">1</strong><span data-tr="Yılın günü">Day of year</span>
+              </div>
+              <div>
+                <strong id="weekNumber">1</strong><span data-tr="ISO haftası">ISO week</span>
+              </div>
+              <div>
+                <strong id="daysLeft">364</strong><span data-tr="Kalan gün">Days to go</span>
+              </div>
+            </div>
+          </section>
+          <details id="worldSection" class="tool-section">
+            <summary>
+              <span class="tool-icon" aria-hidden="true">◎</span
+              ><span data-tr="Dünya saatleri">World clock</span
+              ><span id="worldCount" class="count-badge">0 / 5</span
+              ><span class="chevron" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="tool-content">
+              <div id="worldClocks" class="world-list"></div>
+              <form id="worldForm" class="inline-form">
+                <label class="sr-only" for="worldZone" data-tr="Şehir veya saat dilimi"
+                  >City or timezone</label
+                ><select id="worldZone"></select
+                ><button id="addWorldClock" class="small-button" type="submit" data-tr="Ekle">
+                  Add
+                </button>
+              </form>
+              <p
+                class="hint"
+                data-tr="En fazla 5 konum. Saatler yaz saati değişikliklerine otomatik uyarlanır."
+              >
+                Up to 5 places. Daylight saving adjusts automatically.
+              </p>
+            </div>
+          </details>
+          <details id="countdownSection" class="tool-section">
+            <summary>
+              <span class="tool-icon" aria-hidden="true">◷</span
+              ><span data-tr="Geri sayımlar">Countdowns</span
+              ><span id="countdownCount" class="count-badge">0 / 8</span
+              ><span class="chevron" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="tool-content">
+              <div id="countdownList"></div>
+              <button
+                id="addCountdown"
+                type="button"
+                class="text-button"
+                data-tr="＋ Geri sayım ekle"
+              >
+                ＋ Add countdown
+              </button>
+            </div>
+          </details>
+          <div class="privacy-note">
+            <svg
+              width="18"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true"
+            >
+              <path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z" />
+              <path d="m8 12 3 3 5-6" />
+            </svg>
+            <div>
+              <strong data-tr="Zamanın, senin cihazında.">Your time, your device.</strong>
+              <p data-tr="Hesap yok. Takip yok. Yalnızca sana ait.">
+                No accounts. No tracking. Just yours.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          id="calendarSection"
+          class="calendar-column"
+          aria-labelledby="currentMonthYear"
+          tabindex="-1"
+        >
+          <div class="calendar-header">
+            <div>
+              <p class="eyebrow" data-tr="BİRAZ İLERİYE BAK">A LITTLE LOOK AHEAD</p>
+              <h2 id="currentMonthYear"></h2>
+            </div>
+            <div class="calendar-nav">
+              <button id="todayBtn" class="quiet-button" type="button" data-tr="Bugün">Today</button
+              ><button
+                id="prevMonth"
+                class="icon-button"
+                type="button"
+                aria-label="Previous month"
+                data-tr-label="Önceki ay"
+              >
+                ‹</button
+              ><button
+                id="nextMonth"
+                class="icon-button"
+                type="button"
+                aria-label="Next month"
+                data-tr-label="Sonraki ay"
+              >
+                ›
+              </button>
+            </div>
+          </div>
+          <div class="calendar-selectors">
+            <label class="sr-only" for="monthSelect" data-tr="Ay">Month</label
+            ><select id="monthSelect"></select
+            ><label class="sr-only" for="yearSelect" data-tr="Yıl">Year</label
+            ><input
+              id="yearSelect"
+              type="number"
+              min="1"
+              max="9999"
+              step="1"
+              aria-label="Year"
+              data-tr-label="Yıl"
+            />
+            <details class="jump-control">
+              <summary data-tr="Tarihe git">Jump to date</summary>
+              <form id="jumpForm">
+                <label class="sr-only" for="jumpDate" data-tr="Gidilecek tarih">Jump date</label
+                ><input
+                  id="jumpDate"
+                  type="date"
+                  min="0001-01-01"
+                  max="9999-12-31"
+                  required
+                /><button type="submit" class="small-button" data-tr="Git">Go</button>
+              </form>
+            </details>
+          </div>
+          <div
+            id="calendarGrid"
+            class="calendar-grid"
+            role="grid"
+            aria-labelledby="currentMonthYear"
+            aria-describedby="calendarHelp"
+          ></div>
+          <div class="calendar-legend">
+            <span
+              ><i class="legend-today" aria-hidden="true"></i
+              ><span data-tr="Bugün">Today</span></span
+            ><span
+              ><i class="legend-event" aria-hidden="true"></i
+              ><span data-tr="Etkinlik var">Has events</span></span
+            ><span class="keyboard-hint" aria-hidden="true" data-tr="Gezinmek için ok tuşları"
+              >Arrow keys to explore</span
+            >
+          </div>
+          <p
+            id="calendarHelp"
+            class="sr-only"
+            data-tr="Ok tuşlarıyla gün veya hafta, Page Up ve Page Down ile ay değiştir. Home bugüne gider. Enter veya boşluk tarihi seçer."
+          >
+            Use arrows to move by day or week, Page Up and Page Down for months, Home for today, and
+            Enter or Space to select.
+          </p>
+          <section class="selected-section" aria-labelledby="selectedHeading">
+            <div class="section-top">
+              <div>
+                <p id="selectedWeekday" class="eyebrow"></p>
+                <h3 id="selectedHeading"></h3>
+              </div>
+              <button
+                id="selectedCountdown"
+                class="icon-button"
+                type="button"
+                aria-label="Count down to selected date"
+                data-tr-label="Seçili tarihe geri sayım"
+              >
+                ◷
+              </button>
+            </div>
+            <p id="selectedStats" class="selected-stats"></p>
+            <p id="selectionAnnouncement" class="sr-only" role="status"></p>
+          </section>
+          <section class="events-section" aria-labelledby="eventsHeading">
+            <div class="section-top">
+              <h3 id="eventsHeading" class="small-heading" data-tr="Günün planı">On the agenda</h3>
+              <button id="addEvent" class="text-button" type="button" data-tr="＋ Etkinlik ekle">
+                ＋ Add event
+              </button>
+            </div>
+            <div id="eventList"></div>
+          </section>
+        </section>
+      </main>
+      <footer class="app-footer">
+        <span
+          >© <span id="copyrightYear">2026</span>
+          <a href="https://github.com/Can-Ozan" target="_blank" rel="noreferrer">Can-Ozan</a
+          ><span class="footer-divider">/</span>v2.0</span
+        ><span id="offlineStatus" data-tr="Bu cihazda saklanır">Saved on this device</span
+        ><a
+          href="https://github.com/Can-Ozan/Clock-Calender-Widget"
+          target="_blank"
+          rel="noreferrer"
+          data-tr="Açık kaynak ↗"
+          >Open source ↗</a
+        >
+      </footer>
     </div>
-
+    <p id="appStatus" class="toast" role="status"></p>
+    <dialog id="settingsDialog" aria-labelledby="settingsHeading">
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow" data-tr="SANA GÖRE">MAKE IT YOURS</p>
+          <h2 id="settingsHeading" data-tr="Ayarlar">Settings</h2>
+        </div>
+        <button
+          type="button"
+          class="icon-button"
+          data-close="settingsDialog"
+          aria-label="Close settings"
+          data-tr-label="Ayarları kapat"
+        >
+          ×
+        </button>
+      </div>
+      <div class="settings-body">
+        <fieldset>
+          <legend data-tr="Saat">Clock</legend>
+          <label class="setting-row"
+            ><span data-tr="Saat biçimi">Time format</span
+            ><select id="settingFormat">
+              <option value="24">24h</option>
+              <option value="12">12h</option>
+            </select></label
+          ><label class="setting-row"
+            ><span data-tr="Saniyeleri göster">Show seconds</span
+            ><input id="settingSeconds" type="checkbox" /></label
+          ><label class="setting-row"
+            ><span data-tr="Ayırıcı yanıp sönsün">Blink separator</span
+            ><input id="settingBlink" type="checkbox" /></label
+          ><label class="field-label" for="settingTimezone" data-tr="Saat dilimi">Timezone</label
+          ><select id="settingTimezone" class="full-width"></select>
+          <p
+            class="hint"
+            data-tr="Takvim, etkinlikler ve geri sayımlar her zaman cihazının yerel tarihlerini kullanır."
+          >
+            Calendar, events and countdowns always use your device's local dates.
+          </p>
+        </fieldset>
+        <fieldset>
+          <legend data-tr="Görünüm">Appearance</legend>
+          <label class="setting-row"
+            ><span data-tr="Tema">Theme</span
+            ><select id="settingTheme">
+              <option value="system" data-tr="Sistem">System</option>
+              <option value="light" data-tr="Açık">Light</option>
+              <option value="dark" data-tr="Koyu">Dark</option>
+            </select></label
+          ><label class="setting-row"
+            ><span data-tr="Vurgu rengi">Accent color</span
+            ><select id="settingAccent">
+              <option value="blue" data-tr="Mavi">Blue</option>
+              <option value="purple" data-tr="Mor">Purple</option>
+              <option value="emerald" data-tr="Zümrüt">Emerald</option>
+              <option value="orange" data-tr="Turuncu">Orange</option>
+            </select></label
+          ><label class="setting-row"
+            ><span data-tr="Dil">Language</span
+            ><select id="settingLocale">
+              <option value="en-GB">English</option>
+              <option value="tr-TR">Türkçe</option>
+            </select></label
+          >
+        </fieldset>
+        <p class="hint" data-tr="Tercihlerin bu tarayıcıda otomatik kaydedilir.">
+          Your preferences are saved automatically in this browser.
+        </p>
+      </div>
+    </dialog>
+    <dialog id="eventDialog" aria-labelledby="eventDialogHeading">
+      <form id="eventForm">
+        <div class="dialog-header">
+          <h2 id="eventDialogHeading">Add event</h2>
+          <button
+            type="button"
+            class="icon-button"
+            data-close="eventDialog"
+            aria-label="Close event editor"
+            data-tr-label="Etkinlik düzenleyicisini kapat"
+          >
+            ×
+          </button>
+        </div>
+        <div class="form-body">
+          <label for="eventTitle" data-tr="Başlık">Title</label
+          ><input id="eventTitle" name="title" maxlength="120" required autocomplete="off" />
+          <div class="form-columns">
+            <div>
+              <label for="eventDate" data-tr="Tarih">Date</label
+              ><input
+                id="eventDate"
+                name="date"
+                type="date"
+                min="0001-01-01"
+                max="9999-12-31"
+                required
+              />
+            </div>
+            <div>
+              <label for="eventTime" data-tr="Saat (isteğe bağlı)">Time (optional)</label
+              ><input id="eventTime" name="time" type="time" />
+            </div>
+          </div>
+          <label for="eventCategory" data-tr="Kategori">Category</label
+          ><select id="eventCategory" name="category">
+            <option value="personal" data-tr="Kişisel · Mavi">Personal · Blue</option>
+            <option value="work" data-tr="İş · Mor">Work · Purple</option>
+            <option value="important" data-tr="Önemli · Turuncu">Important · Orange</option></select
+          ><label for="eventDescription" data-tr="Not (isteğe bağlı)">Note (optional)</label
+          ><textarea id="eventDescription" name="description" maxlength="2000" rows="3"></textarea>
+          <p id="eventError" class="form-error" role="alert"></p>
+          <div class="form-actions">
+            <button type="button" class="quiet-button" data-close="eventDialog" data-tr="İptal">
+              Cancel</button
+            ><button type="submit" class="primary-button" data-tr="Etkinliği kaydet">
+              Save event
+            </button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="countdownDialog" aria-labelledby="countdownDialogHeading">
+      <form id="countdownForm">
+        <div class="dialog-header">
+          <h2 id="countdownDialogHeading">Add countdown</h2>
+          <button
+            type="button"
+            class="icon-button"
+            data-close="countdownDialog"
+            aria-label="Close countdown editor"
+            data-tr-label="Geri sayım düzenleyicisini kapat"
+          >
+            ×
+          </button>
+        </div>
+        <div class="form-body">
+          <label for="countdownTitle" data-tr="Başlık">Title</label
+          ><input
+            id="countdownTitle"
+            name="title"
+            maxlength="120"
+            required
+            autocomplete="off"
+          /><label for="countdownDate" data-tr="Hedef tarih">Target date</label
+          ><input id="countdownDate" name="date" type="date" max="9999-12-31" required />
+          <p class="hint" data-tr="Cihazının yerel tarihine göre takvim günleri sayılır.">
+            Counts calendar days using your device's local date.
+          </p>
+          <p id="countdownError" class="form-error" role="alert"></p>
+          <div class="form-actions">
+            <button type="button" class="quiet-button" data-close="countdownDialog" data-tr="İptal">
+              Cancel</button
+            ><button type="submit" class="primary-button" data-tr="Geri sayımı kaydet">
+              Save countdown
+            </button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="installDialog" aria-labelledby="installHeading">
+      <div class="dialog-header">
+        <h2 id="installHeading" data-tr="Yanında olsun">Keep it close</h2>
+        <button
+          type="button"
+          class="icon-button"
+          data-close="installDialog"
+          aria-label="Close install help"
+          data-tr-label="Yükleme yardımını kapat"
+        >
+          ×
+        </button>
+      </div>
+      <div class="form-body">
+        <p
+          data-tr="Chrome veya Edge'de adres çubuğundaki yükleme simgesini ya da tarayıcı menüsündeki Uygulamayı yükle seçeneğini kullan. iPhone veya iPad'de Safari paylaş menüsünden Ana Ekrana Ekle'yi seç. Mac'te Safari Dosya menüsünden Dock'a Ekle'yi kullan."
+        >
+          In Chrome or Edge, use the install icon in the address bar or Install app in the browser
+          menu. On iPhone or iPad, use Safari's Share menu → Add to Home Screen. On Mac, use
+          Safari's File menu → Add to Dock.
+        </p>
+        <p
+          class="hint"
+          data-tr="Çevrimdışı hazır yazısı görününce uygulama internetsiz de çalışır. Yükleme desteği tarayıcıya göre değişir."
+        >
+          Once the footer says Offline ready, the app works without a connection. Installation
+          support varies by browser.
+        </p>
+      </div>
+    </dialog>
+    <noscript
+      ><p class="notice">
+        Please enable JavaScript to use the clock, calendar and local tools.
+      </p></noscript
+    >
     <script type="module" src="/src/main.ts"></script>
-</body>
+  </body>
 </html>

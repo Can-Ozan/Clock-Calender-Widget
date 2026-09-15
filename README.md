@@ -1,363 +1,201 @@
-# 🕐 Modern Clock & Calendar Widget
+# Clock & Calendar Widget v2.0
 
-<div align="center">
+**Your time, thoughtfully arranged.** A private clock, calendar and collection of lightweight personal time tools by [Can-Ozan](https://github.com/Can-Ozan).
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
-![Vite](https://img.shields.io/badge/Vite-5.0-purple?style=for-the-badge&logo=vite)
-![Responsive](https://img.shields.io/badge/Responsive-Design-green?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+Vanilla TypeScript + Vite. No account, backend, external APIs, trackers, external fonts or runtime dependencies.
 
-**A fully responsive clock and calendar widget with Turkish language support, modern interface, and advanced features**
+![Desktop preview](docs/preview.png)
 
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Development](#-development)
+[Mobile preview](docs/preview-mobile.png) · [Dark theme](docs/preview-dark.png) · [Report an issue](https://github.com/Can-Ozan/Clock-Calender-Widget/issues)
 
-![Widget Preview] (https://clock-calender-widget.vercel.app)
+There is no hosted live demo. These are screenshots of the locally running production build.
 
-</div>
+## Features
 
-## 📋 Table of Contents
+- **Clock:** correct 12h/24h formatting, optional seconds and blinking separators, automatic local timezone or an IANA timezone. Daylight saving follows the browser's timezone rules.
+- **Calendar:** Monday-first, six-week grid; previous/next month, Today, month/year controls and date jump. Adjacent-month selection opens that month.
+- **Date details:** selected weekday/date, day of year, ISO week and week-year, and days remaining in the year.
+- **Local events:** create, edit, move and delete titles, descriptions, optional times and labeled color categories. Event dots and accessible counts appear on dates. Limit: 1,000 events.
+- **World clocks:** optional expandable section with up to five timezones, including Istanbul, London, New York, Tokyo and Berlin. Each shows its local date and time.
+- **Countdowns:** up to eight titled date targets with create, edit, delete, target-day and elapsed states. Start from a selected future date.
+- **Appearance:** Light, Dark or System; Blue, Purple, Emerald or Orange accents; English and Turkish interfaces. System mode follows OS changes.
+- **Accessibility:** native buttons and dialogs, keyboard calendar navigation, visible focus, useful status announcements, reduced motion and forced-colors support.
+- **Offline:** installable PWA with local icons and versioned caches. Updates wait for you to finish editing and select **Update now**.
+- **Efficiency:** one aligned clock timer, paused in hidden documents. Minute-only ticking when seconds are hidden. World clocks share the timer; calendar statistics refresh daily.
 
-- [About](#-about-the-project)
-- [Features](#-features)
-- [Technologies](#-technologies)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Project Structure](#-project-structure)
-- [Development](#-development)
-- [API Reference](#-api-reference)
-- [Customization](#-customization)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [FAQ](#-faq)
+Preferences, events and countdowns survive reloads. Tabs on the same origin receive saved-data changes from other tabs.
 
-## 🚀 About the Project
+## Getting started
 
-Modern Clock & Calendar Widget is a fully responsive and user-friendly time management tool developed using TypeScript and Vite. This widget provides a modern solution that developers can integrate into their projects or use as a standalone application.
+Use **Node.js 24 LTS** (recommended; see `.nvmrc`) and npm. Supported engines: Node **22.13+ within 22.x, or 24+**.
 
-### 🎯 Core Objectives
-
-- ✅ **Real-time** clock and date display
-- ✅ **User-interactive** calendar component
-- ✅ **Fully responsive** design
-- ✅ **Modern UI/UX** principles
-- ✅ **Turkish language** support
-- ✅ **High performance**
-
-## ✨ Features
-
-### 🕐 Clock Section
-- **Real-time** digital clock (second-based updates)
-- **Smooth animated** seconds indicator
-- **24-hour format** support
-- **Turkish date** format ("1 Ocak 2024 Pazartesi")
-- **Smooth transitions** and modern typography
-
-### 📅 Calendar Section
-- **Interactive monthly** calendar view
-- **Month navigation** buttons (previous/next)
-- **Return to today** feature
-- **Day selection** and highlighting
-- **Weekend** color coding
-- **Grayed out days** from other months
-- **Monday-start** week layout
-
-### 🎨 Theme System
-- **Light/Dark** theme support
-- **CSS variables** for theme management
-- **LocalStorage** theme preference memory
-- **Smooth theme transition** animations
-
-### 📊 Statistics
-- **Day of the year** counter
-- **Week number**
-- **Days left in year** countdown
-
-### 📱 Responsive Design
-- **Mobile-friendly** design
-- **Tablet and desktop** optimization
-- **Flexbox + CSS Grid** implementation
-- **Adaptive typography** and spacing
-
-## 🛠 Technologies
-
-| Technology | Description | Version |
-|-----------|----------|----------|
-| **TypeScript** | Type safety and modern JavaScript | ^5.0.0 |
-| **Vite** | Fast build tool and development server | ^5.0.0 |
-| **HTML5** | Semantic markup and modern features | - |
-| **CSS3** | Modern styling and layout | - |
-| **ES2020** | Modern JavaScript features | - |
-
-### 🎯 Technical Features
-
-- **Modular Architecture**: Each component as separate TypeScript class
-- **Type Safety**: Full TypeScript support
-- **Hot Module Replacement**: Instant change visualization
-- **Tree Shaking**: Optimized bundle
-- **Source Maps**: Easy debugging
-
-## 📥 Installation
-
-### Prerequisites
-
-- **Node.js** (v16 or higher)
-- **npm** or **yarn** package manager
-
-### Step-by-Step Installation
-
-1. **Download or clone the project:**
-
-```bash
+```sh
 git clone https://github.com/Can-Ozan/Clock-Calender-Widget.git
-cd Clock-Calendar-Widget
-```
-
-2. **Install dependencies:**
-
-```bash
+cd Clock-Calender-Widget
 npm install
-```
-
-3. **Start development server:**
-
-```bash
 npm run dev
 ```
 
-4. **Open in browser:**
+Open **http://localhost:3000**. The development server reports an error if that port is occupied.
 
-```
-http://localhost:3000
-```
+## Commands
 
-### Production Build
+| Command                 | Purpose                                         |
+| ----------------------- | ----------------------------------------------- |
+| `npm run dev`           | Start the development server                    |
+| `npm run typecheck`     | Strict TypeScript checks for source and tests   |
+| `npm run lint`          | ESLint with type-aware TypeScript rules         |
+| `npm run format`        | Format maintained files with Prettier           |
+| `npm run format:check`  | Check formatting without writing                |
+| `npm run test`          | Run the Vitest unit suite once                  |
+| `npm run test:watch`    | Interactive unit tests                          |
+| `npm run test:coverage` | Coverage for date utilities and stores          |
+| `npm run test:tz`       | Date tests under four process timezones         |
+| `npm run build`         | Typecheck, build assets and generate the worker |
+| `npm run preview`       | Serve the build at http://localhost:4173        |
+| `npm run test:e2e`      | Playwright browser, accessibility and PWA tests |
 
-```bash
-# Create production build
+Use `npm ci` for reproducible CI installs. The lockfile is committed; dependencies, build output, traces and coverage are ignored.
+
+## Production build
+
+```sh
 npm run build
-
-# Preview build
 npm run preview
 ```
 
-## 🎮 Usage
+The contents of `dist/` are the distributable app. Serve them over HTTP(S); opening `index.html` through `file://` does not support modules or service workers. Build includes strict type checking.
 
-### Basic Usage
+## Keyboard shortcuts
 
-The widget automatically initializes and includes the following components:
+Tab into the calendar. One date is in the tab sequence; other controls remain ordinary form controls.
 
-1. **Clock Section**: Real-time clock and date at the top
-2. **Calendar Section**: Interactive calendar in the middle
-3. **Statistics**: Time statistics at the bottom
-4. **Theme Toggle**: Theme button in the top right corner
+| Key                 | Action while a date is focused                                      |
+| ------------------- | ------------------------------------------------------------------- |
+| Left / Right        | Previous / next day                                                 |
+| Up / Down           | Previous / next week                                                |
+| Page Up / Page Down | Corresponding day in previous / next month, clamped to month length |
+| Home                | Focus today and show its month                                      |
+| Enter / Space       | Select focused date and update details/events                       |
+| Tab / Shift+Tab     | Move between controls                                               |
+| Escape              | Close a dialog                                                      |
 
-### Interactions
+Arrows move focus independently of selection. The Today button selects today. Calendar shortcuts do not capture input/select/textarea keys. Date-entry range: 0001–9999.
 
-- **⬅️ ➡️**: Month navigation buttons
-- **📅 Return to Today**: Navigate to current month and day
-- **🌙/☀️**: Theme toggle
-- **Click on Days**: Day selection and detail viewing
+## PWA installation and offline use
 
-## 📁 Project Structure
+1. Open a **production build** on HTTPS or localhost. Workers are intentionally disabled in development.
+2. Wait for **Offline ready** in the footer, which confirms the shell has finished caching.
+3. Choose **Install app**. Supported browsers show their install prompt; otherwise this opens platform instructions. Chrome/Edge also have address-bar/menu installation actions. Safari supports Add to Home Screen or Add to Dock on supported devices.
+4. Open or refresh offline. Clock, calendar, settings, events and countdowns continue to work.
 
-```
-clock-calendar-widget/
-├── 📄 index.html              # Main HTML file
-├── 🎨 style.css               # Stylesheet (with CSS variables)
-├── 📦 package.json            # Project configuration
-├── ⚙️ vite.config.js          # Vite configuration
-├── 🔧 tsconfig.json           # TypeScript configuration
-└── 📁 src/                    # Source code
-    ├── 🚀 main.ts             # Application entry point
-    ├── 🕐 Clock.ts            # Clock component
-    ├── 📅 Calendar.ts         # Calendar component
-    └── 📊 DateUtils.ts        # Date utility functions
-```
+Installation is optional. Prompt availability depends on browser, OS and engagement criteria.
 
-### File Descriptions
+The build hashes its static files into a cache version. Online navigation revalidates HTML; installed assets come from the cache. A new worker waits for **Update now**, which reloads the current page, so finish open edits first. Old app caches are removed after activation; localStorage survives updates. The included Vite plugin generates the worker; no third-party PWA plugin or runtime caching library is required.
 
-#### `src/main.ts`
-- Application initializer
-- Theme management
-- Component coordination
+## Local data and date rules
 
-#### `src/Clock.ts`
-- Real-time clock management
-- Date formatting
-- Statistics calculations
+| Storage key                 | Content                                      |
+| --------------------------- | -------------------------------------------- |
+| `clock-calendar:settings`   | Clock, appearance, language and world clocks |
+| `clock-calendar:events`     | Events with plain `YYYY-MM-DD` civil dates   |
+| `clock-calendar:countdowns` | Titled date targets                          |
 
-#### `src/Calendar.ts`
-- Calendar creation and management
-- Month navigation operations
-- Day selection interactions
+Records are versioned and validated. The original `theme` key is recognized when v2 settings do not exist. Corrupt records are reported without crashing or immediately overwriting them. Blocked/full storage keeps changes in memory for the session and visibly explains that they will not survive reload.
 
-#### `src/DateUtils.ts`
-- Date calculation functions
-- Calendar day generation
-- Formatting helpers
+The **main clock and its statistics** follow the selected timezone. The **calendar, events and countdowns** use device-local civil dates. Event times are labels; there are no alarms or push notifications. Countdowns count calendar days, not rolling 24-hour intervals. Days remaining excludes the selected day and is zero on 31 December.
 
-#### `style.css`
-- Theme system with CSS variables
-- Responsive grid and flexbox layout
-- Modern animations and transitions
+No data is uploaded. Browser storage is not encrypted or backed up; clearing site data removes it. Devices, profiles, hostnames and ports have separate data. Simultaneous writes across tabs are last-write-wins.
 
-## 🔧 Development
+## Architecture
 
-### Development Scripts
-
-```json
-{
-  "dev": "vite",              // Development server
-  "build": "vite build",      // Production build
-  "preview": "vite preview"   // Build preview
-}
-```
-
-### Development Tips
-
-1. **Hot Reload**: Changes appear instantly when you save files
-2. **Type Checking**: TypeScript compile-time error checking
-3. **Source Maps**: Source maps enabled for debugging
-
-### Code Standards
-
-- **TypeScript strict mode** disabled (for flexibility)
-- **ES2020** target
-- **Modular class structure**
-- **English comments**
-
-## 📚 API Reference
-
-### DateUtils Class
-
-```typescript
-// Calendar day interface
-interface CalendarDay {
-    day: number;
-    date: Date;
-    isCurrentMonth: boolean;
-    isToday: boolean;
-    isWeekend: boolean;
-}
-
-// Static methods
-DateUtils.generateCalendarDays(date: Date): CalendarDay[]
-DateUtils.formatDate(date: Date): string
-DateUtils.formatTime(date: Date): TimeObject
-DateUtils.getDayOfYear(date: Date): number
-DateUtils.getWeekNumber(date: Date): number
-DateUtils.getDaysLeftInYear(date: Date): number
+```text
+index.html                 Semantic app and native dialogs
+style.css                  Design tokens, themes and responsive layouts
+src/
+  main.ts                  State, coordination and lifecycle
+  Clock.ts                 One visibility-aware scheduler
+  Calendar.ts              Month rendering, selection and keyboard focus
+  DateUtils.ts             Civil dates, ISO weeks, cached Intl formatters
+  components/
+    SelectedDatePanel.ts   Selected date statistics
+    EventPanel.ts          Event editor and date agenda
+    WorldClock.ts          Saved timezone list, sharing the main timer
+    CountdownPanel.ts      Countdown editor and day-based results
+    SettingsPanel.ts       Clock, theme, accent and language preferences
+  services/
+    Storage.ts             Versioned serialization and failure recovery
+    SettingsStore.ts       Defaults, validation and migration
+    EventStore.ts          Validated event CRUD
+    CountdownStore.ts      Validated countdown CRUD
+  types/index.ts           Shared domain interfaces
+  utils/                   DOM, language, timezone and dialog helpers
+  pwa.ts                   Installation, status and update controls
+public/                    Manifest, local icons and robots.txt
+scripts/                   Offline build plugin, worker and QA helpers
+tests/                     Vitest date and store tests
+e2e/                       Browser, accessibility and PWA tests
+docs/                      Audit, screenshots and validation report
 ```
 
-### Clock Class
+The original modules remain the foundation. Civil-date ordinals avoid DST arithmetic errors. User titles and descriptions use `textContent`, never HTML injection.
 
-```typescript
-class Clock {
-    start(): void                    // Start clock
-    stop(): void                     // Stop clock
-    toggleTimeFormat(): void        // Toggle time format
-}
+## Testing
+
+```sh
+npm run typecheck
+npm run lint
+npm run test
+npm run test:coverage
+npm run test:tz
+npm run build
+npx playwright install chromium
+npm run test:e2e
 ```
 
-### Calendar Class
+Tests cover leap/century rules, February, ISO week-years, historical dates, DST, timezone/year boundaries, calendar generation, navigation, clock formats, serialization, storage failures and CRUD. Date tests run under UTC, New York, Berlin and Auckland.
 
-```typescript
-class Calendar {
-    initialize(): void              // Initialize calendar
-    previousMonth(): void           // Go to previous month
-    nextMonth(): void               // Go to next month
-    goToToday(): void               // Return to today
-}
+Browser checks exercise initial load, refresh, keyboard operation, all personal tools, persistence, multiple tabs, hidden-document timing, themes, Turkish, storage denial, mobile overflow and axe scans. PWA tests serve the built files from a plain local server with a strict Content Security Policy and exercise installation metadata, offline reload and waiting-worker updates.
+
+GitHub Actions is configured to run these checks on Node 24. See [the validation report](docs/VALIDATION.md) for actual executed results and limits.
+
+To regenerate the original vector's PNG icons and real screenshots:
+
+```sh
+npx playwright install chromium
+node scripts/generate-icons.mjs
+npm run build
+npm run preview -- --host 127.0.0.1
+# In another terminal:
+node scripts/capture-preview.mjs
+npm run build
 ```
 
-## 🎨 Customization
+## Static hosting
 
-### Customizing Themes
+Publish the **contents of `dist/`** to any static HTTPS host. For builds from Git, use Node 24, `npm ci`, `npm run build`, and output directory `dist`. No provider-specific configuration or backend is required.
 
-You can customize themes by modifying CSS variables:
+The checked-in Vite base, HTML asset paths and manifest target the **origin root (`/`)**. Subdirectory hosting needs coordinated changes to Vite `base`, HTML paths and manifest scope/start/icon paths, followed by validation at that prefix. The worker generator follows Vite's base. No SPA catch-all is needed: the app has one root page and no client routes.
 
-```css
-:root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
-    --accent: #3b82f6;
-    /* Other variables... */
-}
+Serve JavaScript and manifest files with the correct MIME types. Recommended cache headers:
 
-[data-theme="dark"] {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --accent: #60a5fa;
-    /* Other variables... */
-}
+| File                                          | Cache-Control                         |
+| --------------------------------------------- | ------------------------------------- |
+| `index.html`, `sw.js`, `manifest.webmanifest` | `no-cache`                            |
+| Hashed `assets/` files                        | `public, max-age=31536000, immutable` |
+
+Publish complete builds atomically. Do not cache the worker permanently. Optional headers include `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, and this tested CSP:
+
+```text
+default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
 ```
 
-### Changing Color Scheme
+Once you have a real permanent URL, add its canonical link and `og:url`, and make `og:image` absolute for social sharing. This repository asserts no nonexistent public URL.
 
-1. Update CSS variables in `style.css`
-2. Modify gradient background
-3. Update theme colors
+## Contributing
 
-### Adding Language Support
+Discuss larger changes in an issue, then submit a focused pull request. Preserve native TypeScript, keyboard accessibility and offline use. Add meaningful date/storage or browser regression tests. Run formatting, lint, tests and build before submitting. Keep generated output, credentials and personal events out of Git.
 
-1. Change locale settings in `DateUtils.ts`
-2. Update texts in `index.html` file
-3. Modify calendar headers
+## License
 
-## 🤝 Contributing
-
-We welcome your contributions! Please follow these steps:
-
-1. Fork the project
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### Contribution Guidelines
-
-- Follow **TypeScript** coding standards
-- Add **English comments**
-- Don't break **responsive design**
-- **Test** and ensure it works
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## ❓ FAQ
-
-### Q: How can I integrate the widget into my own project?
-**A:** Copy the built files (`dist` folder) to your project and use the structure from `index.html`.
-
-### Q: Can I change the Turkish language support?
-**A:** Yes, modify the `toLocaleDateString('tr-TR')` part in the `DateUtils.ts` file.
-
-### Q: Can I add new themes to the theme system?
-**A:** Yes, add new `[data-theme="theme-name"]` selectors to the `style.css` file.
-
-### Q: How is the performance on mobile devices?
-**A:** High performance is ensured with optimized CSS and JavaScript.
-
-### Q: What is the browser compatibility?
-**A:** The last 2 versions of modern browsers are supported.
-
-## 📞 Contact
-
-For questions about the project:
-
-- **GitHub Issues**: [Create an issue](https://github.com/Can-Ozan/repo/issues)
-- **Email**: yusufcanozan9@gmail.com
-
----
-
-<div align="center">
-
-**⭐ If you like this project, don't forget to give it a star!**
-
-*Modern Clock & Calendar Widget - With Turkish Support* 🚀
-
-
-</div>
-
-
+[MIT](LICENSE). Original copyright attribution is preserved.

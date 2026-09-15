@@ -1,11 +1,15 @@
 import { defineConfig } from 'vite';
+import { offlinePlugin } from './scripts/pwa-plugin.mjs';
 
 export default defineConfig({
+  base: '/',
+  plugins: [offlinePlugin()],
   server: {
     port: 3000,
-    open: true
+    strictPort: true,
   },
   build: {
-    outDir: 'dist'
-  }
+    outDir: 'dist',
+    target: 'es2022',
+  },
 });

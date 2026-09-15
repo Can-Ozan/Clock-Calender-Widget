@@ -1,0 +1,68 @@
+{
+  "environment": {
+    "os": "Windows 11",
+    "node": "v25.8.2",
+    "npm": "11.11.1",
+    "browser": "Chromium 153.0.8010.12"
+  },
+  "runs": {
+    "mobile": {
+      "lighthouseVersion": "13.4.1",
+      "fetchTime": "2026-09-14T06:31:06.196Z",
+      "url": "http://127.0.0.1:4173/",
+      "categories": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 904.28,
+          "display": "0.9 s"
+        },
+        "largest-contentful-paint": {
+          "value": 941.28,
+          "display": "0.9 s"
+        },
+        "total-blocking-time": {
+          "value": 24,
+          "display": "20 ms"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.002397327039317071,
+          "display": "0.002"
+        }
+      }
+    },
+    "desktop": {
+      "lighthouseVersion": "13.4.1",
+      "fetchTime": "2026-09-14T06:32:14.304Z",
+      "url": "http://127.0.0.1:4173/",
+      "categories": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 243.97199999999998,
+          "display": "0.2 s"
+        },
+        "largest-contentful-paint": {
+          "value": 251.47199999999998,
+          "display": "0.3 s"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "display": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.001522903327570157,
+          "display": "0.002"
+        }
+      }
+    }
+  }
+}
