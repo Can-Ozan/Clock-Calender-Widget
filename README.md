@@ -217,13 +217,21 @@ Tabs on the same origin receive saved-data changes; simultaneous writes are last
 
 Installation is optional and depends on support for a compatible secure origin and browser installation features.
 
+## Live Demo
+
+The latest version of **Clock & Calendar Widget v2.0** is available on GitHub Pages:
+
+**https://can-ozan.github.io/Clock-Calender-Widget/**
+
 ## Deployment
 
-There is currently **no public deployment**. Build locally and publish the **contents of `dist/`** to any static HTTPS hosting provider. A typical host build uses Node 24, `npm ci` and `npm run build`, with `dist` as the output directory. Generated build files are ignored by Git.
+The project is automatically deployed to **GitHub Pages** using GitHub Actions.
 
-The default Vite base, HTML asset paths and manifest target the **origin root (`/`)**. Hosting under a subdirectory requires coordinated changes to Vite `base`, HTML asset paths and manifest scope/start/icon paths, followed by testing at that prefix. No client-side routing fallback is required.
+Every push to the `main` branch triggers the deployment workflow:
 
-Serve JavaScript and the manifest with the correct MIME types. Revalidate `index.html`, `sw.js` and `manifest.webmanifest` (`Cache-Control: no-cache`); hashed assets can use long-lived immutable caching. Publish complete builds together.
+```text
+.github/workflows/deploy-pages.yml
+```
 
 ## Documentation
 
