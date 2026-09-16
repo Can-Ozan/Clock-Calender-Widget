@@ -6,6 +6,8 @@ import { resolve } from 'node:path';
 let server: Server;
 let origin = '';
 let revision = 1;
+const basePath = '/Clock-Calender-Widget';
+const appPath = `${basePath}/`;
 
 test.beforeAll(async () => {
   const output = resolve('dist');
@@ -22,7 +24,8 @@ test.beforeAll(async () => {
   };
   server = createServer((request, response) => {
     const path = new URL(request.url ?? '/', 'http://localhost').pathname;
-    const file = path === '/' ? '/index.html' : path;
+    const relativePath = path.startsWith(basePath) ? path.slice(basePath.length) || '/' : path;
+    const file = relativePath === '/' ? '/index.html' : relativePath;
     const content = files.get(file);
     if (!content) {
       response.writeHead(404);
@@ -45,7 +48,7 @@ test.beforeAll(async () => {
       file === '/sw.js'
         ? content
             .toString()
-            .replace(/clock-calendar-\/-[a-f0-9]+/, (match) => `${match}-revision-${revision}`)
+            .replace(/clock-calendar-[^"]+/, (match) => `${match}-revision-${revision}`)
         : content,
     );
   });
@@ -70,8 +73,15 @@ test('static hosting with a strict CSP allows the app, and PWA updates wait for 
   page.on('console', (message) => {
     if (message.type() === 'error') errors.push(message.text());
   });
-  await page.goto(origin);
+  await page.goto(`${origin}${appPath}`);
   await expect(page.locator('#offlineStatus')).toHaveText('Offline ready');
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.ready;
+  });
+  if (!(await page.evaluate(() => Boolean(navigator.serviceWorker.controller)))) {
+    await page.reload();
+    await expect(page.locator('#offlineStatus')).toHaveText('Offline ready');
+  }
   await page.getByRole('button', { name: '＋ Add event' }).click();
   await page.locator('#eventTitle').fill('Keep this saved note');
   await page.getByRole('button', { name: 'Save event', exact: true }).click();
@@ -112,13 +122,13 @@ test('manifest provides installable icons, scope, identity and standalone displa
   page,
   context,
 }) => {
-  const response = await request.get(`${origin}/manifest.webmanifest`);
+  const response = await request.get(`${origin}${appPath}manifest.webmanifest`);
   expect(response.status()).toBe(200);
   const manifest: unknown = await response.json();
   expect(manifest).toMatchObject({
-    id: '/',
-    start_url: '/',
-    scope: '/',
+    id: appPath,
+    start_url: appPath,
+    scope: appPath,
     display: 'standalone',
     icons: expect.arrayContaining([
       expect.objectContaining({ sizes: '192x192' }),
@@ -126,11 +136,11 @@ test('manifest provides installable icons, scope, identity and standalone displa
     ]),
   });
   for (const name of ['icon-192.png', 'icon-512.png', 'maskable-512.png', 'apple-touch-icon.png']) {
-    const icon = await request.get(`${origin}/icons/${name}`);
+    const icon = await request.get(`${origin}${appPath}icons/${name}`);
     expect(icon.status()).toBe(200);
     expect(icon.headers()['content-type']).toBe('image/png');
   }
-  await page.goto(origin);
+  await page.goto(`${origin}${appPath}`);
   await expect(page.locator('#offlineStatus')).toHaveText('Offline ready');
   const cdp = await context.newCDPSession(page);
   const manifestInfo = await cdp.send('Page.getAppManifest');

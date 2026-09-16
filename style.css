@@ -909,6 +909,10 @@ summary::-webkit-details-marker {
   color: var(--text-secondary);
   padding: 20px 4px;
 }
+.app-footer a {
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
 .footer-divider {
   padding: 0 10px;
   color: var(--text-muted);
